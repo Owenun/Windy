@@ -14,12 +14,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.conf.urls import url
 
+from blog.views import (IndexViews, PostDetailView, TagView, CategoryView) # post_detail, post_list
+from config.views import links
 from .custom_site import custom_site
 
 urlpatterns = [
-    path('admin/', custom_site.urls),
-    path('super_admin/', admin.site.urls)
+    path('admin/', custom_site.urls, name='admin'),
+    path('super_admin/', admin.site.urls, name='super-admin'),
+    re_path(r'^$', IndexViews.as_view(), name='index'),
+    re_path(r'^category/(?P<category_id>\d+)/$', CategoryView.as_view(), name='category-list'),
+    re_path(r'^tag/(?P<tag_id>\d+)/$', TagView.as_view(), name='tag-list'),
+    # re_path(r"^post/(?P<post_id>\d+).html$", post_detail, name='post-detail'),
+    re_path(r"^post/(?P<post_id>\d+).html$", PostDetailView.as_view(), name='post-detail'),
+    re_path(r'^links/$', links, name='links'),
 ]

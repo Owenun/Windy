@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'windy',
     'blog',
     'config',
     'comment',
@@ -73,8 +74,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'windy.wsgi.application'
-
-
 
 
 # Password validation

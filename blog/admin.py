@@ -20,25 +20,19 @@ class PostInline(admin.TabularInline):  # stackedInline样式不同
 class CategoryAdmin(BaseOwnerAdmin):
 
     inlines = [PostInline, ]
-    list_display = ('name', 'status', 'is_nav', 'created_time', 'post_count')
-    fields = ('name', 'status', 'is_nav', 'owner')
+    list_display = ('name', 'status', 'is_nav', 'created_time', 'post_count', 'owner')
+    fields = ('name', 'status', 'is_nav', )  # 'owner'
 
     def post_count(self, obj):
         return obj.post_set.count()
     post_count.short_description = '文章数量'
 
-    def __str__(self):
-        return self.name
-
 
 @admin.register(Tag, site=custom_site)
 class TagAdmin(BaseOwnerAdmin):
 
-    list_display = ('name', 'status', 'created_time')
-    fields = ('name', 'status')
-
-    def __str__(self):
-        return self.name
+    list_display = ('name', 'status', 'created_time', 'owner')
+    fields = ('name', 'status',)
 
 
 class CategoryOwnerFilter(admin.SimpleListFilter):
@@ -68,12 +62,12 @@ class PostAdmin(BaseOwnerAdmin):
     ]
     list_display_links = []
     list_filter = [CategoryOwnerFilter]
-    search_fields = ['title', ]
+    search_fields = ['title', 'category_name']
     actions_on_top = True
-    actions_on_bottom = True
+    # actions_on_bottom = True
 
     # 编辑页面
-    save_on_top = True
+    # save_on_top = True
 
     """exclude = ('owner',)
     
@@ -112,9 +106,6 @@ class PostAdmin(BaseOwnerAdmin):
             reverse('cus_admin:blog_post_change', args=(obj.id, ))
         )
     operator.short_description = '操作'
-
-    def __str__(self):
-        return self.name
 
     class Media:
         css = {
