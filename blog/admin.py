@@ -32,7 +32,7 @@ class CategoryAdmin(BaseOwnerAdmin):
 class TagAdmin(BaseOwnerAdmin):
 
     list_display = ('name', 'status', 'created_time', 'owner')
-    fields = ('name', 'status',)
+    fields = ('name', 'status', )
 
 
 class CategoryOwnerFilter(admin.SimpleListFilter):

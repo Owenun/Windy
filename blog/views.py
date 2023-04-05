@@ -104,3 +104,5 @@ class PostDetailView(CommonViewMixin, DetailView):
     queryset = Post.latest_posts()
     context_object_name = 'post'
     pk_url_kwarg = 'post_id'
+
+
