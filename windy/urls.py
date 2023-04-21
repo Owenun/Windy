@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from django.conf.urls import url
 
 from blog.views import (IndexViews, PostDetailView, TagView, CategoryView) # post_detail, post_list
 from config.views import links
